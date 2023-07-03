@@ -1,0 +1,24 @@
+import numpy as np
+from sklearn.neural_network import MLPRegressor
+
+# Input data
+X = np.array(([2, 9], [1, 5], [3, 6]), dtype=float)
+y = np.array(([92], [86], [89]), dtype=float)
+
+# Normalize the input data
+X = X / np.amax(X, axis=0)
+y = y / 100
+
+# Create and train the neural network
+model = MLPRegressor(hidden_layer_sizes=(3,), max_iter=7500, learning_rate_init=0.1)
+model.fit(X, y)
+
+# Predict the output
+output = model.predict(X)
+
+# Denormalize the predicted output
+output = output * 100
+
+print("Input: \n" + str(X))
+print("Actual Output: \n" + str(y))
+print("Predicted Output: \n", output)
