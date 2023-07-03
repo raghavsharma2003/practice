@@ -1,0 +1,44 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import metrics
+
+
+def load_data(filename):
+    data = pd.read_csv(filename)
+    features = data.columns[:-1]
+    return data, features
+
+
+def build_tree(data, features):
+    X = data[features]
+    y = data[data.columns[-1]]
+    model = DecisionTreeClassifier()
+    model.fit(X, y)
+    return model
+
+
+def print_tree(model, features):
+    print(model)
+
+
+def classify(model, test_data, features):
+    X_test = test_data[features]
+    predictions = model.predict(X_test)
+    print(predictions)
+
+
+filename = 'diabetes2.csv'
+data, features = load_data(filename)
+
+
+# Building the tree
+model = build_tree(data, features)
+
+
+# Printing the tree
+print_tree(model, features)
+
+
+# Classifying test instances
+test_data, _ = load_data(filename)
+classify(model, test_data, features)
