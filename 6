@@ -1,0 +1,29 @@
+import tensorflow as tf
+from tensorflow.keras import layers
+import numpy as np
+
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
+
+x_train = x_train.astype('float32') / 255.0
+x_test = x_test.astype('float32') / 255.0
+
+model = tf.keras.models.Sequential([
+    layers.Flatten(input_shape=(32, 32, 3)),
+    layers.Dense(512, activation='relu'),
+    layers.Dense(10)
+])
+
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
+
+model.fit(x_train, y_train, epochs=10, validation_data=(x_test, y_test))
+
+predictions = model.predict(x_test)
+
+
+predicted_labels = np.argmax(predictions, axis=1)
+
+num_samples_to_display = 5
+for i in range(num_samples_to_display):
+    print(f"Sample {i+1}: True Label: {y_test[i][0]}, Predicted Label: {predicted_labels[i]}")
