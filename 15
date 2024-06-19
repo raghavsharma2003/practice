@@ -1,0 +1,21 @@
+
+import torch
+from transformers import T5ForConditionalGeneration, T5Tokenizer
+
+model_name = "t5-small"
+tokenizer = T5Tokenizer.from_pretrained(model_name)
+model = T5ForConditionalGeneration.from_pretrained(model_name)
+
+def summarize_text(text, max_length=50):
+    input_text = "summarize: " + text
+    input_ids = tokenizer.encode(input_text, return_tensors="pt", add_special_tokens=True)
+    output_ids = model.generate(input_ids=input_ids, max_length=max_length, num_beams=4, no_repeat_ngram_size=2)
+    summary = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+    return summary
+
+text = """
+Without strong security rules, anyone who has the address of your database can read / write to it, leaving your data vulnerable to attackers stealing, modifying, or deleting data as well as creating costly operations.
+"""
+
+summary = summarize_text(text)
+print(summary)
