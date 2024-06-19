@@ -1,0 +1,65 @@
+import tensorflow as tf
+import numpy as np
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+# Load a small sample text corpus (replace with your own)
+corpus = [
+    "Hello, how are you?",
+    "I am doing well.",
+    "What's your name?",
+    "My name is ChatBot.",
+    "How can I help you?",
+    "Tell me a joke.",
+    "Why did the chicken cross the road?",
+    "To get to the other side."
+]
+
+# Tokenization and Vocabulary Creation
+tokenizer = Tokenizer()
+tokenizer.fit_on_texts(corpus)
+vocab_size = len(tokenizer.word_index) + 1  # Add 1 for padding token
+word_index = tokenizer.word_index
+
+# Set model parameters
+embedding_dim = 128
+lstm_units = 64
+max_length = 10  # Adjust based on your corpus
+
+# Prepare training data
+sequences = tokenizer.texts_to_sequences(corpus)
+padded_sequences = pad_sequences(sequences, maxlen=max_length, padding='pre')
+
+# Split data into input and target sequences
+input_sequences = padded_sequences[:, :-1]
+target_sequences = padded_sequences[:, 1:]
+
+# Model Definition
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Embedding(vocab_size, embedding_dim, input_length=max_length-1),
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(lstm_units, return_sequences=True)),
+    tf.keras.layers.TimeDistributed(tf.keras.layers.Dense(vocab_size, activation='softmax'))
+])
+
+model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# Reshape target data to match output shape of the model
+target_sequences = target_sequences.reshape((target_sequences.shape[0], target_sequences.shape[1], 1))
+
+# Train the model (adjust epochs based on your data)
+model.fit(input_sequences, target_sequences, epochs=200)
+
+def generate_response(input_query, max_length=10):
+    input_sequence = tokenizer.texts_to_sequences([input_query])[0]
+    input_sequence = pad_sequences([input_sequence], maxlen=max_length-1, padding='pre')
+
+    predicted_sequence = model.predict(input_sequence)
+    predicted_words = [np.argmax(predicted_sequence[0][i]) for i in range(predicted_sequence.shape[1])]
+    response = tokenizer.sequences_to_texts([predicted_words])[0]
+    return response
+
+# Example interaction
+user_query = "Hello, how are you?"
+response = generate_response(user_query)
+print(f"User: {user_query}")
+print(f"ChatBot: {response}")
