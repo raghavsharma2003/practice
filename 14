@@ -1,0 +1,26 @@
+import tensorflow as tf
+from tensorflow.keras.datasets import imdb
+from tensorflow.keras.preprocessing import sequence
+
+# Load IMDB dataset (using top 5000 most frequent words)
+vocab_size = 5000
+(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=vocab_size)
+
+# Pad sequences to have the same length
+max_len = 500
+x_train = sequence.pad_sequences(x_train, maxlen=max_len)
+x_test = sequence.pad_sequences(x_test, maxlen=max_len)
+
+# Build GRU model
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Embedding(vocab_size, 128),
+    tf.keras.layers.GRU(128),
+    tf.keras.layers.Dense(1, activation='sigmoid')
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(x_train, y_train, epochs=5, batch_size=64)
+
+# Evaluate the model
+loss, accuracy = model.evaluate(x_test, y_test)
+print("Accuracy:", accuracy)
