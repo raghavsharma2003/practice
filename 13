@@ -1,0 +1,29 @@
+import tensorflow as tf
+import cv2
+import numpy as np
+
+model = tf.keras.models.load_model('yolo.h5')
+classes = ["person", "bicycle", "car", "..."]
+
+image = cv2.imread('coco_image.jpg')
+input_image = cv2.resize(image, (416, 416))
+input_image = input_image / 255.0
+input_image = np.expand_dims(input_image, 0)
+
+detections = model.predict(input_image)
+
+boxes = detections[:, :, :4]
+scores = detections[:, :, 4]
+class_ids = np.argmax(detections[:, :, 5:], axis=-1)
+
+
+for i in range(len(boxes)):
+    if scores[i] > 0.5:  # Confidence threshold
+        x, y, w, h = boxes[i]
+        x, y, w, h = int(x), int(y), int(w), int(h)
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        label = classes[class_ids[i]]
+        cv2.putText(image, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+cv2.imshow("Detections", image)
+cv2.waitKey(0)
