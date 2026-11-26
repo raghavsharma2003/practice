@@ -415,6 +415,124 @@ details.src-d summary::-webkit-details-marker{display:none}
 details.src-d summary::before{content:"+ ";color:var(--accent)}
 details.src-d[open] summary::before{content:"– "}
 
+
+/* ---------- explainers ---------- */
+.stagebar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink)}
+.stagebar button{background:none;border:0;border-right:1px solid var(--rule);text-align:left;padding:10px 12px 12px;cursor:pointer;font:inherit;color:var(--mute);position:relative}
+.stagebar button:last-child{border-right:0}
+.stagebar button small{display:block;font:500 10.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.stagebar button b{font:680 var(--s0) var(--f-display);font-variation-settings:"wdth" 104;color:var(--ink-2)}
+.stagebar button::before{content:"";position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--accent)}
+.stagebar button.now b{color:var(--ink)}
+.stagebar button.now::before{animation:fill var(--dur,4s) linear forwards}
+.stagebar button.done::before{width:100%}
+.stage-box{position:relative;background:var(--sheet);border:1px solid var(--ink);border-radius:6px;min-height:340px;padding:26px 24px 22px;overflow:hidden}
+.cap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:baseline;min-height:3.2em}
+.cap .num{font-size:2.6rem;color:var(--accent)}
+.cap p{font-size:var(--s1);color:var(--ink-2);line-height:1.45;max-width:70ch}
+.cap p strong{color:var(--ink)}
+/* LLM */
+.llm-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;align-items:end}
+@media (max-width:900px){.llm-grid{grid-template-columns:1fr}}
+.toks{position:relative;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;padding-top:120px;min-height:250px}
+.toks svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.chip{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0;transform:translateY(14px) scale(.9);transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.chip.on{opacity:1;transform:none}
+.chip .w0{font:600 var(--s1)/1 var(--f-body);padding:9px 12px;border:1.5px solid var(--ink);border-radius:5px;background:var(--sheet);white-space:pre}
+.chip.new .w0{border-color:var(--accent);background:var(--accent-tint);color:var(--accent-ink)}
+.chip.focus .w0{box-shadow:0 0 0 4px var(--accent-tint);border-color:var(--accent)}
+.chip small{font:500 10.5px var(--f-mono);color:var(--mute)}
+.emb{display:grid;grid-template-rows:repeat(10,6px);gap:2px;width:22px;margin-top:2px}
+.emb i{border-radius:1px;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.stage-box[data-s="1"] .emb i,.stage-box[data-s="2"] .emb i,.stage-box[data-s="3"] .emb i{transform:none}
+.layer{position:absolute;right:20px;top:18px;font:600 11px var(--f-mono);color:var(--mute);letter-spacing:.06em;text-transform:uppercase;opacity:0;transition:opacity .4s}
+.stage-box[data-s="2"] .layer{opacity:1}
+.layer b{color:var(--accent-ink)}
+.pred{display:flex;flex-direction:column;gap:8px;opacity:.25;transition:opacity .5s}
+.stage-box[data-s="3"] .pred{opacity:1}
+.pred h4{margin:0 0 4px;font:600 10.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.pr{display:grid;grid-template-columns:7ch minmax(0,1fr) 4.5ch;gap:10px;align-items:center;font:500 13px var(--f-mono);color:var(--ink-2)}
+.pr .t{height:18px;background:var(--paper);border-radius:2px;overflow:hidden}
+.pr .t i{display:block;height:100%;width:0;background:var(--ink);transition:width .9s var(--ease)}
+.pr.top .t i{background:var(--accent)}
+.pr.top{color:var(--ink);font-weight:600}
+.pr b{text-align:right}
+/* training */
+.train-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:24px;align-items:stretch}
+@media (max-width:900px){.train-grid{grid-template-columns:1fr}}
+.tsteps{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.tsteps li{display:grid;grid-template-columns:3ch minmax(0,1fr);gap:12px;padding:11px 0;border-bottom:1px solid var(--rule);font-size:var(--s-1);color:var(--mute);transition:color .3s,background .3s}
+.tsteps li b{font:820 1.4rem/1 var(--f-display);font-variation-settings:"wdth" 64;color:var(--rule-2);transition:color .3s}
+.tsteps li strong{display:block;font:650 var(--s0) var(--f-display);font-variation-settings:"wdth" 104;color:var(--ink-2)}
+.tsteps li.on{color:var(--ink-2);background:linear-gradient(90deg,var(--accent-tint),transparent 70%)}
+.tsteps li.on b{color:var(--accent)}
+.tsteps li.on strong{color:var(--ink)}
+.guess{border:1px solid var(--ink);border-radius:6px;background:var(--sheet);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.guess .q{font:500 var(--s1)/1.3 var(--f-body);color:var(--ink)}
+.guess .q span{display:inline;padding:0 .35em;border-bottom:2px solid var(--accent);color:var(--accent-ink);font-weight:650;text-align:center;transition:all .3s}
+.guess .meta b{color:var(--ink)}
+.land{position:relative;background:var(--sheet);border:1px solid var(--ink);border-radius:6px;overflow:hidden;min-height:300px;display:flex;flex-direction:column}
+#land{width:100%;flex:1;min-height:220px;display:block}
+.land-foot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink)}
+.land-foot div{padding:10px 12px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:2px}
+.land-foot div:last-child{border-right:0}
+.land-foot small{font:500 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.land-foot b{font:820 1.6rem/1 var(--f-display);font-variation-settings:"wdth" 66}
+#lossc{width:100%;height:70px;display:block;border-top:1px solid var(--rule)}
+/* RLHF */
+.lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:16px}
+.lane{background:var(--sheet);border:1px solid var(--ink);border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;min-height:400px}
+.lane h3{font:720 var(--s1)/1.1 var(--f-display);font-variation-settings:"wdth" 106}
+.lane .sub{font:500 11px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+.seq{opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease),transform .55s var(--ease),border-color .4s,background .4s,box-shadow .4s}
+.seq.on{opacity:1;transform:none}
+.bubble{align-self:flex-start;background:var(--ink);color:#fff;border-radius:14px 14px 14px 3px;padding:9px 13px;font-size:14px}
+.ans{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ac{border:1.5px solid var(--rule-2);border-radius:6px;padding:10px 12px;font-size:13px;color:var(--ink-2);position:relative;min-height:84px}
+.ac em{display:block;font:600 10px var(--f-mono);font-style:normal;letter-spacing:.06em;color:var(--mute);margin-bottom:4px}
+.ac.pick{border-color:var(--ok);background:var(--ok-tint);box-shadow:0 0 0 4px rgba(11,132,82,.12)}
+.ac.pick::after{content:"✓ preferred";position:absolute;right:8px;top:8px;font:700 10px var(--f-mono);color:var(--ok);text-transform:uppercase}
+.ac.lose{opacity:.55}
+.flow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}
+.box{border:1.5px solid var(--ink);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--ink-2)}
+.box b{font:680 13.5px var(--f-display);font-variation-settings:"wdth" 104;color:var(--ink)}
+.box.glow{border-color:var(--accent);box-shadow:0 0 0 5px var(--accent-tint)}
+.arrow{font:600 18px var(--f-mono);color:var(--accent)}
+.score{display:grid;grid-template-columns:3ch minmax(0,1fr) 4ch;gap:8px;align-items:center;font:500 11.5px var(--f-mono)}
+.score .t{height:8px;background:var(--paper)}
+.score .t i{display:block;height:100%;width:0;background:var(--ink);transition:width 1s var(--ease)}
+.score.hi .t i{background:var(--ok)}
+.counter{margin-top:auto;font:500 11.5px var(--f-mono);color:var(--mute);display:flex;justify-content:space-between;border-top:1px solid var(--rule);padding-top:10px}
+.counter b{color:var(--ink)}
+.cursor{position:absolute;width:18px;height:18px;left:85%;top:92%;transition:left 1s var(--ease),top 1s var(--ease),transform .15s;z-index:3;pointer-events:none}
+.cursor.click{transform:scale(.8)}
+.tries{display:flex;flex-direction:column;gap:7px}
+.try{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;border:1.5px solid var(--rule-2);border-radius:6px;padding:8px 10px;font:500 12.5px var(--f-mono);color:var(--ink-2)}
+.try .v{font-weight:700}
+.try.bad{border-color:var(--risk);background:var(--risk-tint)} .try.bad .v{color:var(--risk)}
+.try.good{border-color:var(--ok);background:var(--ok-tint)} .try.good .v{color:var(--ok)}
+.reward{font:820 2rem/1 var(--f-display);font-variation-settings:"wdth" 66;color:var(--ok)}
+
+
+/* this week: omega number line */
+.omega{position:relative;background:var(--sheet);border:1px solid var(--ink);border-radius:6px;padding:22px 22px 18px}
+.omega svg{width:100%;height:auto;display:block;overflow:visible}
+.omega text{font-family:var(--f-mono)}
+.wk{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+/* what's next tiles */
+.next{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--rule)}
+@media (max-width:1050px){.next{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.next{grid-template-columns:1fr}}
+.nx{position:relative;background:var(--sheet);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:16px 16px 14px;display:flex;flex-direction:column;gap:8px;min-height:236px;overflow:hidden}
+.nx h3{font:720 var(--s0)/1.15 var(--f-display);font-variation-settings:"wdth" 106}
+.nx p{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.nx p strong{color:var(--ink)}
+.nx .viz{height:58px;position:relative;margin-top:auto}
+.nx .viz canvas{width:100%;height:100%;display:block}
+.nx .k{font:500 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:6px}
+.stream{font:500 11px/1.35 var(--f-mono);color:var(--ink);height:58px;overflow:hidden;word-break:break-all}
+.stream b{color:var(--accent-ink)}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important;transition-delay:0s!important}
   html{scroll-behavior:auto}
@@ -454,9 +572,25 @@ details.src-d[open] summary::before{content:"– "}
         </div>
       </div>
       <div class="log rv" style="--d:2">
-        <div class="log-h"><span>news.log · Oct 21 → Nov 24</span><span class="live">live</span></div>
+        <div class="log-h"><span>news.log · Oct 21 → Nov 25</span><span class="live">live</span></div>
         <ol id="log"></ol>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="week" data-label="This week">
+  <div class="wrap">
+    <h2 class="h-l split">This week alone: a <em class="hl">57-year-old</em> question in computer science, answered.</h2>
+    <div class="omega rv" style="--d:2">
+      <div class="meta" style="margin-bottom:10px"><span>ω · the exponent of matrix multiplication · how fast can you multiply two n×n matrices?</span><span class="badge b-rev">Upper bound formalized · lower bound claimed</span></div>
+      <svg id="omegaSvg" viewBox="0 0 1100 190" role="img" aria-label="Number line of the matrix multiplication exponent from 3 down to 2, with records from Strassen 1969 to OpenAI's claimed 9/4 in November 2026"></svg>
+    </div>
+    <div class="wk">
+      <div class="card rv" style="--d:3"><div class="meta"><span>OpenAI · Nov 24–25</span><span class="badge b-rev">Claimed</span></div><h3>ω = 9/4, exactly</h3><p>Every textbook since 1969 has chased this number. OpenAI's model proved an upper bound of <strong>2.25</strong> (the best published was 2.371) and a matching lower bound for arithmetic circuits. Outside groups have independently written up and Lean-formalized the upper bound. Sébastien Bubeck: <strong>"the kind of result that I never thought I would see in my lifetime."</strong></p></div>
+      <div class="card rv" style="--d:4"><div class="meta"><span>Physics · Oct 26 → Nov 10</span><span class="badge b-ok">Committee-verified</span></div><h3>Yang–Mills theory exists</h3><p>OpenAI's models produced a 1,147-page proof that pure Yang–Mills theory exists mathematically. A committee chaired by Nobel laureate <strong>David Gross</strong> posted a Lean formalization and confirmed it. The $1M "mass gap" part is still open, and the full proof has not been released.</p></div>
+      <div class="card rv" style="--d:5"><div class="meta"><span>Google · Nov 25</span><span class="badge b-open">Claimed</span></div><h3>Six papers in one day</h3><p>Google's multi-agent system <strong>Cogentic</strong> (built on Gemini 4) posted six math papers, including the first rigorous integer-factoring bound of L[1/3] since 1992. No practical effect on cryptography.</p></div>
+      <div class="card rv" style="--d:6"><div class="meta"><span>Physics · Nov 2026</span><span class="badge b-rev">Reported</span></div><h3>49 of 50</h3><p>GPT-6 Astra solved 49 of 50 <strong>unpublished</strong> theoretical-physics problems from India's ICTS-TIFR (TheoPhysEval). A UCSB physicist used it to attack a 50-year gap: putting the Standard Model on a lattice.</p></div>
     </div>
   </div>
 </section>
@@ -475,6 +609,90 @@ details.src-d[open] summary::before{content:"– "}
       <button class="era" data-e="4"><small>2027 →</small><b>Self-improvement</b></button>
     </div>
     <div class="era-detail rv" style="--d:4" id="eraDetail"></div>
+  </div>
+</section>
+
+<section class="slide" id="llm" data-label="How an LLM works">
+  <div class="wrap">
+    <h2 class="h-l split">An LLM is a <em class="hl">next-word machine,</em> run billions of times.</h2>
+    <div class="stagebar rv" style="--d:2" id="llmTabs">
+      <button data-s="0"><small>Step 01</small><b>Tokenize</b></button>
+      <button data-s="1"><small>Step 02</small><b>Embed</b></button>
+      <button data-s="2"><small>Step 03</small><b>Attend</b></button>
+      <button data-s="3"><small>Step 04</small><b>Predict</b></button>
+    </div>
+    <div class="stage-box rv" style="--d:3" id="llmBox" data-s="0">
+      <span class="layer">layer <b id="llmLayer">1</b> / 96</span>
+      <div class="llm-grid">
+        <div class="toks" id="llmToks"><svg id="llmArcs" aria-hidden="true"></svg></div>
+        <div class="pred" id="llmPred"><h4>Next-token probabilities</h4></div>
+      </div>
+    </div>
+    <div class="cap rv" style="--d:4"><span class="num" id="llmNum">01</span><p id="llmCap"></p></div>
+  </div>
+</section>
+
+<section class="slide" id="train" data-label="How training works">
+  <div class="wrap">
+    <h2 class="h-l split">Training is <em class="hl">guess, check, nudge,</em> repeated trillions of times.</h2>
+    <div class="train-grid">
+      <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+        <ol class="tsteps rv" style="--d:2" id="tsteps">
+          <li><b>1</b><span><strong>Take text from the internet</strong>Books, code, papers, the web: tens of trillions of tokens.</span></li>
+          <li><b>2</b><span><strong>Hide the next word</strong>"The capital of France is ___"</span></li>
+          <li><b>3</b><span><strong>The model guesses</strong>It outputs probabilities for every possible next token.</span></li>
+          <li><b>4</b><span><strong>Measure the error, nudge the weights</strong>Gradient descent adjusts hundreds of billions of numbers slightly downhill.</span></li>
+        </ol>
+        <div class="guess rv" style="--d:3"><div class="meta"><span>Model's guess as training progresses</span><span>p = <b id="tgp">3%</b></span></div><div class="q">The capital of France is <span id="tgw">the</span></div></div>
+      </div>
+      <div class="land rv" style="--d:3">
+        <canvas id="land" aria-label="Loss landscape with a ball rolling downhill, showing gradient descent"></canvas>
+        <canvas id="lossc" aria-hidden="true"></canvas>
+        <div class="land-foot"><div><small>Tokens seen</small><b id="ttok">0</b></div><div><small>Loss</small><b id="tloss">4.20</b></div><div><small>Compute</small><b id="tflop">0</b></div></div>
+      </div>
+    </div>
+    <p class="src rv" style="--d:4">Illustration. Frontier runs use ~10<sup>26</sup> FLOP across 100,000+ GPUs for months, and the loss landscape has billions of dimensions, not two. The principle is the same: follow the slope downhill.</p>
+  </div>
+</section>
+
+<section class="slide" id="rlhf" data-label="RLHF & RL">
+  <div class="wrap">
+    <h2 class="h-l split">Then models are taught to be <em class="hl">helpful,</em> and to be <em class="hl">right.</em></h2>
+    <div class="lanes">
+      <div class="lane rv" style="--d:2" id="laneA">
+        <span class="sub">2022 → · RLHF</span>
+        <h3>Learn from human preferences</h3>
+        <div class="bubble seq" data-k="1">Explain a black hole to a 10-year-old.</div>
+        <div class="ans">
+          <div class="ac seq" data-k="2" id="acA"><em>Answer A</em>A region where spacetime curvature exceeds escape velocity c…</div>
+          <div class="ac seq" data-k="2" id="acB"><em>Answer B</em>Imagine a drain in space so strong that even light can't climb out…</div>
+        </div>
+        <div class="flow seq" data-k="4">
+          <div class="box" id="rmBox"><b>Reward model</b><div class="score"><span>A</span><span class="t"><i id="scA"></i></span><span>0.21</span></div><div class="score hi"><span>B</span><span class="t"><i id="scB"></i></span><span>0.87</span></div></div>
+          <span class="arrow">→</span>
+          <div class="box" id="polA"><b>Policy update</b>The model shifts toward answers people prefer.</div>
+        </div>
+        <div class="counter"><span>human comparisons</span><b id="cmpN">0</b></div>
+        <svg class="cursor" id="cursorA" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 1 L2 15 L6 11 L9 17 L11 16 L8 10 L14 10 Z" fill="#0B0D12" stroke="#fff" stroke-width="1"/></svg>
+      </div>
+      <div class="lane rv" style="--d:3" id="laneB">
+        <span class="sub">2024 → · RL with verifiable rewards</span>
+        <h3>Learn from answers a machine can check</h3>
+        <div class="bubble seq" data-k="1">Fix the bug so all 42 tests pass.</div>
+        <div class="tries">
+          <div class="try seq" data-k="2" id="t1"><span>attempt 1</span><span>patch parser.py</span><span class="v">31/42 ✗</span></div>
+          <div class="try seq" data-k="3" id="t2"><span>attempt 2</span><span>handle empty input</span><span class="v">40/42 ✗</span></div>
+          <div class="try seq" data-k="4" id="t3"><span>attempt 3</span><span>fix off-by-one</span><span class="v">42/42 ✓</span></div>
+        </div>
+        <div class="flow seq" data-k="5">
+          <div class="box"><b>Checker</b>Unit tests, a math answer key, or the Lean proof kernel. No human needed.</div>
+          <span class="arrow">→</span>
+          <div class="box" id="polB"><b>Reward <span class="reward">+1</span></b>Reinforce whatever reasoning led there.</div>
+        </div>
+        <div class="counter"><span>attempts, fully automatic</span><b id="tryN">0</b></div>
+      </div>
+    </div>
+    <p class="src rv" style="--d:4">RLHF made ChatGPT helpful (InstructGPT, 2022). Verifiable rewards (o1, DeepSeek-R1, 2024–25) made models good at reasoning, which is why math and code fell first: answers there can be checked automatically, millions of times over.</p>
   </div>
 </section>
 
@@ -592,7 +810,7 @@ details.src-d[open] summary::before{content:"– "}
 <section class="slide" id="millennium" data-label="Millennium board" data-act="III · Discoveries" data-roman="III">
   <div class="wrap">
     <div class="mill-total">
-      <h2 class="h-l split" style="flex:1 1 520px">Seven problems, $1M each. Humans solved one in 26 years. In 2026, AI reached <em class="hl">three.</em></h2>
+      <h2 class="h-l split" style="flex:1 1 520px">Seven problems, $1M each. Humans solved one in 26 years. In 2026, AI made progress on <em class="hl">four.</em></h2>
     </div>
     <div class="mill rv" style="--d:2" id="mill"></div>
     <p class="src rv" style="--d:3">No prize has been awarded; Clay requires publication plus two years of scrutiny. "Machine-verified" means the Lean proof checker accepts the proof, while human review of the ideas can take years.</p>
@@ -721,6 +939,23 @@ details.src-d[open] summary::before{content:"– "}
       <div><span>~JUL 2028</span><b>ASI</b><p>Better than the best humans at almost every cognitive task (their model's latest run).</p></div>
     </div>
     <div class="fc rv" style="--d:4" id="fc"></div>
+  </div>
+</section>
+
+<section class="slide" id="next" data-label="What's next">
+  <div class="wrap">
+    <h2 class="h-l split">What's coming next: <em class="hl">eight curves</em> to watch.</h2>
+    <div class="next rv" style="--d:2">
+      <div class="nx"><span class="k"><span>01 · Knowledge work</span><span class="badge b-ok">Measured</span></span><h3>Expert-level on most office tasks</h3><p>On GDPval (44 occupations), models win or tie against industry experts on <strong>85%</strong> of tasks, up from 71% in Dec 2025, at under 1% of the cost.</p><div class="viz"><canvas data-viz="gdp"></canvas></div></div>
+      <div class="nx"><span class="k"><span>02 · Continual learning</span><span class="badge b-open">Next frontier</span></span><h3>Models that learn on the job</h3><p>Not shipped yet. Today models learn offline, in batches. Meta FAIR's self-improving memory scored <strong>56 vs 44.6</strong>. Dwarkesh calls it the main bottleneck, and when it is solved value jumps discontinuously.</p><div class="viz"><canvas data-viz="loop"></canvas></div></div>
+      <div class="nx"><span class="k"><span>03 · Self-improvement</span><span class="badge b-rev">Underway</span></span><h3>AI speeding up AI</h3><p>METR measures Anthropic's progress at <strong>1.9×</strong> its old pace, mostly from AI. OpenAI's research org runs 3.1 agent-workdays per human workday.</p><div class="viz"><canvas data-viz="rsi"></canvas></div></div>
+      <div class="nx"><span class="k"><span>04 · Near-zero cost</span><span class="badge b-ok">Epoch</span></span><h3>Intelligence too cheap to meter</h3><p>The price of a fixed level of capability falls <strong>~13× a year</strong>, faster than computing ever did. Frontier-class tokens now cost about $0.14 per million.</p><div class="viz"><canvas data-viz="cost"></canvas></div></div>
+      <div class="nx"><span class="k"><span>05 · Distillation</span><span class="badge b-ok">Epoch</span></span><h3>No one keeps the crown for long</h3><p>Open-weight models trail the frontier by only <strong>~4 months</strong>. Distillation copies capability downstream (one lab found 16M scraping exchanges through 24K fake accounts), so AI spreads rather than staying centralized.</p><div class="viz"><canvas data-viz="distill"></canvas></div></div>
+      <div class="nx"><span class="k"><span>06 · Extreme speed</span><span class="badge b-ok">Shipped</span></span><h3>1,000+ tokens per second</h3><p>OpenAI's Codex-Spark on Cerebras writes code at <strong>1,200 tok/s</strong>, about 15× normal. Cerebras serves open models at up to 2,600 tok/s. Diffusion LLMs generate whole passages at once.</p><div class="stream" id="streamTxt"></div></div>
+      <div class="nx"><span class="k"><span>07 · Voice</span><span class="badge b-rev">Reported</span></span><h3>Talking to computers, for real</h3><p>About <strong>250M people a week</strong> use ChatGPT by voice (OpenAI, reported). ElevenLabs is at ~$600M revenue run-rate. Real-time speech-to-speech models now handle interruptions and emotion.</p><div class="viz"><canvas data-viz="voice"></canvas></div></div>
+      <div class="nx"><span class="k"><span>08 · Video &amp; worlds</span><span class="badge b-rev">Racing</span></span><h3>Film from a sentence</h3><p>Kling 4.0, Seedance 2.5 and Google's Omni models top the video arenas. Every frame is generated, and minutes-long consistent scenes are next. Video models are becoming world simulators.</p><div class="viz"><canvas data-viz="video"></canvas></div></div>
+    </div>
+    <p class="src rv" style="--d:3">GDPval: OpenAI (GPT-5.5, Apr 2026; "wins" include ties). Cost: Epoch "The plunging price of thought" (Sep 2026). Open-closed gap: Epoch (May 2026). Speed: OpenAI, Artificial Analysis. Voice figures are secondary reports. Continual learning: Meta FAIR (Nov 2026), Dwarkesh Patel.</p>
   </div>
 </section>
 
@@ -915,6 +1150,7 @@ function boot(){
     const sh=document.createElement('div');sh.className='shade';sh.id='shade';document.body.appendChild(sh);
     let start=Math.max(0,slides.findIndex(s=>'#'+s.id===location.hash));cur=start;
     slides[start].classList.add('cur');setActive(start);requestAnimationFrame(()=>{slides[start].classList.add('in');onEnter(slides[start])});
+    addEventListener('hashchange',()=>{const j=slides.findIndex(s=>'#'+s.id===location.hash);if(j>=0&&j!==cur)go(j)});
     let acc=0,lock=0;
     addEventListener('wheel',e=>{if(e.defaultPrevented||e.ctrlKey)return;const s=slides[cur];
       if(e.target.closest('.xfeed'))return;
@@ -960,6 +1196,11 @@ function onEnter(s){
   if(s.id==='hero')lens1.reform();
   if(s.id==='after')lightDomains();
   if(s.id==='timeline')travelTimeline();
+  if(s.id==='llm')startLLM();
+  if(s.id==='train')startTrain();
+  if(s.id==='rlhf')startRLHF();
+  if(s.id==='week')drawOmega();
+  if(s.id==='next')startNext();
 }
 
 /* HERO + FINALE: graph paper pulled into an event horizon */
@@ -1007,6 +1248,7 @@ const lens2=makeLens($('lens2'),{fx:.76,fy:.5,mass:.32,hole:.11});
 const LOG=[
  ['Oct 21','<strong>PHP2Shell</strong> patched: AI-found PHP flaws put ~70% of the web at risk','cyber','b-risk'],
  ['Nov 5','METR: Anthropic\'s progress running <strong>~1.9× faster</strong>, ~80% from AI','takeoff','b-rev'],
+ ['Nov 10','Gross committee confirms OpenAI\'s <strong>Yang–Mills existence</strong> proof','physics','b-ok'],
  ['Nov 10','AI 2027 authors: <strong>superhuman AI researcher in 2027</strong>','forecast','b-open'],
  ['Nov 13','Dwarkesh: <strong>"The avalanche that hit math is coming for AI development"</strong>','essay','b-open'],
  ['Nov 16','California <strong>sues OpenAI</strong> over the Hugging Face agent breach','incident','b-risk'],
@@ -1016,7 +1258,9 @@ const LOG=[
  ['Nov 20','Buckmaster + Alpöge: <strong>Navier–Stokes blow-up without forcing</strong>','math','b-rev'],
  ['Nov 21','Lean FRO &amp; Mathlib <strong>certify</strong> the RH formal proof','verified','b-ok'],
  ['Nov 23','<strong>VP ≠ VNP</strong> (algebraic P vs NP) claimed by Anthropic and OpenAI','math','b-rev'],
- ['Nov 24','Claude shrinks the RH Lean proof <strong>by 99.56%</strong>, to ~76K lines','math','b-ok']
+ ['Nov 24','Claude shrinks the RH Lean proof <strong>by 99.56%</strong>, to ~76K lines','math','b-ok'],
+ ['Nov 25','OpenAI: matrix multiplication exponent <strong>ω = 9/4</strong>','math','b-rev'],
+ ['Nov 25','Google Cogentic: <strong>six math papers</strong> in a day','math','b-open']
 ];
 $('log').innerHTML=LOG.map(r=>'<li class="pending"><b>'+r[0]+'</b><span>'+r[1]+'</span><span class="badge '+r[3]+'">'+r[2]+'</span></li>').join('');
 let logPlayed=false;
@@ -1077,6 +1321,164 @@ $('tl').innerHTML=TL.map(r=>'<div class="tl-item'+(r[0]?' ny':'')+'" data-era="'
   addEventListener('pointerup',()=>{d=false;w.style.cursor=''});
   w.addEventListener('pointermove',e=>{if(d)w.scrollLeft=sl-(e.clientX-sx)});
   w.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){const max=w.scrollWidth-w.clientWidth;if((e.deltaY>0&&w.scrollLeft<max-2)||(e.deltaY<0&&w.scrollLeft>2)){e.preventDefault();w.scrollLeft+=e.deltaY}}},{passive:false});
+})();
+
+
+/* ===== explainer: how an LLM works ===== */
+(function(){
+  const box=$('llmBox'),toks=$('llmToks'),arcs=$('llmArcs'),pred=$('llmPred'),cap=$('llmCap'),num=$('llmNum'),tabs=[...document.querySelectorAll('#llmTabs button')],layer=$('llmLayer');
+  const BASE=[['The',464],['cat',3797],['sat',3332],['on',319],['the',262]];
+  const GEN=[{w:['mat',2603],p:[['mat',.62],['floor',.14],['sofa',.09],['roof',.05],['moon',.01]]},
+             {w:['and',290],p:[['and',.41],['.',.33],[',',.12],['while',.06],['again',.03]]},
+             {w:['purred',47478],p:[['purred',.57],['slept',.21],['waited',.09],['stared',.06],['left',.03]]}];
+  const ATT={The:.2,cat:.95,sat:.7,on:.45,the:.3,mat:.85,and:.35,purred:.6};
+  const CAPS=['<strong>Tokenize.</strong> Text is chopped into tokens (words and word-pieces). Each gets an ID from a vocabulary of about 100–200K.',
+    '<strong>Embed.</strong> Each token becomes a long list of numbers, thousands of dimensions, that encodes its meaning. Similar words get similar numbers.',
+    '<strong>Attend.</strong> In each of ~100 layers, every token looks back at the others to gather context. Thicker lines mean more attention: the last word leans on "cat" and "sat".',
+    '<strong>Predict.</strong> The model scores every possible next token, picks one, appends it and runs again. Everything an LLM writes is this loop, one token at a time.'];
+  const DUR=[3600,3400,4200,4600];
+  let stage=0,gen=0,timer=null,runId=0,list=BASE.slice();
+  function embCells(word){let h=0;for(const c of word)h=(h*31+c.charCodeAt(0))>>>0;let out='';for(let i=0;i<10;i++){h=(h*1103515245+12345)>>>0;const v=(h%1000)/1000;out+='<i style="background:'+(v>.62?'rgba(255,77,0,'+(.35+v*.6)+')':'rgba(11,13,18,'+(.12+v*.6)+')')+';transition-delay:'+(i*40)+'ms"></i>'}return out}
+  function renderToks(animate){toks.querySelectorAll('.chip').forEach(c=>c.remove());
+    list.forEach((t,i)=>{const c=document.createElement('div');c.className='chip'+(i>=BASE.length?' new':'');c.innerHTML='<span class="w0">'+t[0]+'</span><small>#'+t[1]+'</small><div class="emb">'+embCells(t[0])+'</div>';toks.appendChild(c);
+      if(animate)setTimeout(()=>c.classList.add('on'),120+i*170);else c.classList.add('on')})}
+  function drawArcs(){arcs.innerHTML='';const chips=[...toks.querySelectorAll('.chip')];if(chips.length<2)return;const last=chips[chips.length-1];last.classList.add('focus');
+    const br=toks.getBoundingClientRect(),lr=last.querySelector('.w0').getBoundingClientRect(),lx=lr.left+lr.width/2-br.left,ly=lr.top-br.top;
+    chips.slice(0,-1).forEach((c,i)=>{const r=c.querySelector('.w0').getBoundingClientRect(),x=r.left+r.width/2-br.left,y=r.top-br.top,w=ATT[list[i][0]]||.2,h=Math.min(110,30+Math.abs(lx-x)*.32);
+      const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M'+lx+','+(ly-2)+' C'+lx+','+(ly-h)+' '+x+','+(y-h)+' '+x+','+(y-2));
+      path.setAttribute('fill','none');path.setAttribute('stroke',w>.6?'#FF4D00':'rgba(11,13,18,'+(.25+w*.5)+')');path.setAttribute('stroke-width',(1+w*5).toFixed(1));path.setAttribute('stroke-linecap','round');arcs.appendChild(path);
+      const L=path.getTotalLength();path.style.strokeDasharray=L;path.style.strokeDashoffset=L;path.getBoundingClientRect();path.style.transition='stroke-dashoffset 1.1s cubic-bezier(.16,.84,.12,1) '+(i*110)+'ms';path.style.strokeDashoffset=0});
+    if(!RM){const t0=performance.now();(function f(n){const k=Math.min(1,(n-t0)/2600);layer.textContent=Math.max(1,Math.round(96*k));if(k<1&&stage===2)requestAnimationFrame(f)})(t0)}else layer.textContent='96'}
+  function renderPred(){const g=GEN[gen];pred.innerHTML='<h4>Next-token probabilities</h4>'+g.p.map((r,i)=>'<div class="pr'+(i===0?' top':'')+'"><span>"'+r[0]+'"</span><span class="t"><i data-w="'+(r[1]/g.p[0][1]*100)+'"></i></span><b>'+Math.round(r[1]*100)+'%</b></div>').join('')}
+  function fillPred(){pred.querySelectorAll('.t i').forEach((i,k)=>setTimeout(()=>i.style.width=i.dataset.w+'%',150+k*90))}
+  function setStage(n,manual){stage=n;box.dataset.s=n;num.textContent='0'+(n+1);cap.innerHTML=CAPS[n];
+    tabs.forEach((b,i)=>{b.classList.toggle('now',i===n);b.classList.toggle('done',i<n);b.style.setProperty('--dur',DUR[i]+'ms');if(i===n){b.classList.remove('now');void b.offsetWidth;b.classList.add('now')}});
+    toks.querySelectorAll('.chip').forEach(c=>c.classList.remove('focus'));
+    if(n===0){renderToks(true);arcs.innerHTML='';renderPred()}
+    if(n<2)arcs.innerHTML='';
+    if(n===2){drawArcs()}
+    if(n===3){if(!arcs.children.length)drawArcs();fillPred();
+      const id=runId;setTimeout(()=>{if(id!==runId)return;const g=GEN[gen];list.push(g.w);renderToks(false);toks.lastElementChild.classList.remove('on');requestAnimationFrame(()=>toks.lastElementChild.classList.add('on'));arcs.innerHTML=''},1900)}
+  }
+  function schedule(){clearTimeout(timer);const id=++runId;if(RM)return;timer=setTimeout(function step(){if(id!==runId)return;
+      if(!live(box)){timer=setTimeout(step,500);return}
+      if(stage<3){setStage(stage+1);timer=setTimeout(step,DUR[stage])}
+      else{ if(gen<GEN.length-1){gen++;renderPred();setStage(2);timer=setTimeout(step,DUR[2]-800)}
+            else{gen=0;list=BASE.slice();setStage(0);timer=setTimeout(step,DUR[0])} }
+    },DUR[stage])}
+  tabs.forEach(b=>b.onclick=()=>{const n=+b.dataset.s;if(n===0){gen=0;list=BASE.slice()}else if(list.length===BASE.length&&n>=1){}setStage(n);schedule()});
+  window.startLLM=function(){gen=0;list=BASE.slice();setStage(0);schedule()};
+  setStage(0);
+})();
+
+/* ===== explainer: how training works ===== */
+(function(){
+  const c=$('land'),x=c.getContext('2d'),lc=$('lossc'),lx=lc.getContext('2d');let W,H,LW,LH,bg=null,ball,vel,trail=[],t=0,running=false,losses=[];
+  const steps=[...document.querySelectorAll('#tsteps li')];
+  const f=(u,v)=>.55*(Math.pow(u-.72,2)*1.5+Math.pow(v-.6,2))+.035*Math.sin(11*u)*Math.cos(8*v)+.02*Math.sin(5*u+3*v);
+  function size(){const d=Math.min(2,devicePixelRatio||1);W=c.clientWidth;H=c.clientHeight;if(!W)return;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0);
+    LW=lc.clientWidth;LH=lc.clientHeight;lc.width=LW*d;lc.height=LH*d;lx.setTransform(d,0,0,d,0,0);
+    // contour map via banded edge detection
+    const o=document.createElement('canvas'),s=2,w=Math.ceil(W/s),h=Math.ceil(H/s);o.width=w;o.height=h;const ox=o.getContext('2d'),img=ox.createImageData(w,h),B=[];
+    let mn=1e9,mx=-1e9;for(let j=0;j<h;j++)for(let i=0;i<w;i++){const val=f(i/w,j/h);B.push(val);mn=Math.min(mn,val);mx=Math.max(mx,val)}
+    const band=v=>Math.floor(Math.pow((v-mn)/(mx-mn),.55)*16);
+    for(let j=0;j<h;j++)for(let i=0;i<w;i++){const k=j*w+i,b=band(B[k]),edge=(i<w-1&&band(B[k+1])!==b)||(j<h-1&&band(B[k+w])!==b);const p=k*4;
+      const shade=1-b/16;img.data[p]=255;img.data[p+1]=Math.round(255-shade*40);img.data[p+2]=Math.round(255-shade*70);img.data[p+3]=Math.round(shade*70);
+      if(edge){img.data[p]=11;img.data[p+1]=13;img.data[p+2]=18;img.data[p+3]=60}}
+    ox.putImageData(img,0,0);bg=o}
+  function reset(){ball=[.1,.14];vel=[0,0];trail=[];t=0;losses=[]}
+  size();reset();addEventListener('resize',size);
+  const fmt=n=>n>=1e12?(n/1e12).toFixed(1)+'T':n>=1e9?(n/1e9).toFixed(0)+'B':n>=1e6?(n/1e6).toFixed(0)+'M':Math.round(n)+'';
+  function frame(){
+    if(running&&live(c)&&W){
+      t++;const e=1e-4;const gx=(f(ball[0]+e,ball[1])-f(ball[0]-e,ball[1]))/(2*e),gy=(f(ball[0],ball[1]+e)-f(ball[0],ball[1]-e))/(2*e);
+      vel=[vel[0]*.9-gx*.0016,vel[1]*.9-gy*.0016];ball=[ball[0]+vel[0],ball[1]+vel[1]];trail.push(ball.slice());if(trail.length>400)trail.shift();
+      const L=f(...ball);losses.push(L);const prog=Math.min(1,t/520);
+      x.clearRect(0,0,W,H);if(bg)x.drawImage(bg,0,0,W,H);
+      x.strokeStyle='#FF4D00';x.lineWidth=2;x.beginPath();trail.forEach((p,i)=>{const X=p[0]*W,Y=p[1]*H;i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();
+      const bx=ball[0]*W,by=ball[1]*H;x.fillStyle='rgba(255,77,0,.18)';x.beginPath();x.arc(bx,by,14,0,7);x.fill();x.fillStyle='#0B0D12';x.beginPath();x.arc(bx,by,6.5,0,7);x.fill();x.strokeStyle='#FF4D00';x.lineWidth=2;x.beginPath();x.arc(bx,by,6.5,0,7);x.stroke();
+      x.fillStyle='#6A6F7E';x.font='500 11px "Geist Mono",monospace';x.fillText('LOSS LANDSCAPE · gradient descent',12,18);x.fillText('step '+(t*1000).toLocaleString(),12,34);
+      // loss curve
+      lx.clearRect(0,0,LW,LH);const mxL=losses[0]||1,mnL=0;lx.strokeStyle='#0B0D12';lx.lineWidth=1.6;lx.beginPath();
+      losses.forEach((v,i)=>{const X=8+i/520*(LW-16),Y=LH-8-(v-mnL)/(mxL-mnL)*(LH-20);i?lx.lineTo(X,Y):lx.moveTo(X,Y)});lx.stroke();
+      lx.fillStyle='#6A6F7E';lx.fillText('loss ↓',LW-48,14);
+      $('ttok').textContent=fmt(prog*15e12);$('tloss').textContent=(0.9+3.3*Math.exp(-prog*4.2)).toFixed(2);$('tflop').textContent='10^'+(18+Math.round(prog*8));
+      const G=prog<.2?['the','3%']:prog<.45?['a city','18%']:prog<.7?['Paris','61%']:['Paris','94%'];$('tgw').textContent=G[0];$('tgp').textContent=G[1];
+      steps.forEach((s,i)=>s.classList.toggle('on',i===Math.floor(t/22)%4));
+      if(t>560){running=false;setTimeout(()=>{reset();running=true},1800)}
+    }
+    if(!RM)requestAnimationFrame(frame);
+  }
+  window.startTrain=function(){size();reset();running=true};
+  if(RM){running=true;for(let i=0;i<560;i++)frame()}else frame();
+})();
+
+/* ===== explainer: RLHF & RL with verifiable rewards ===== */
+(function(){
+  const A=$('laneA'),B=$('laneB'),cur=$('cursorA');let id=0;
+  const wait=ms=>new Promise(r=>setTimeout(r,RM?0:ms));
+  function count(el,to,ms){if(RM){el.textContent=to.toLocaleString();return}const t0=performance.now();(function f(n){const k=Math.min(1,(n-t0)/ms);el.textContent=Math.round(to*k*k).toLocaleString();if(k<1)requestAnimationFrame(f)})(t0)}
+  async function run(){const my=++id;
+    const on=(root,k)=>root.querySelectorAll('.seq[data-k="'+k+'"]').forEach(e=>e.classList.add('on'));
+    [A,B].forEach(r=>r.querySelectorAll('.seq').forEach(e=>e.classList.remove('on')));
+    ['acA','acB'].forEach(i=>$(i).classList.remove('pick','lose'));['t1','t2','t3'].forEach(i=>$(i).classList.remove('bad','good'));
+    $('scA').style.width=0;$('scB').style.width=0;$('rmBox').classList.remove('glow');$('polA').classList.remove('glow');$('polB').classList.remove('glow');
+    cur.style.left='85%';cur.style.top='92%';$('cmpN').textContent='0';$('tryN').textContent='0';
+    await wait(500);if(my!==id)return;on(A,1);on(B,1);
+    await wait(900);if(my!==id)return;on(A,2);on(B,2);
+    await wait(900);if(my!==id)return;$('t1').classList.add('bad');
+    await wait(500);if(my!==id)return;on(B,3);
+    // cursor moves to answer B
+    const br=$('acB').getBoundingClientRect(),ar=A.getBoundingClientRect();cur.style.left=((br.left-ar.left+br.width*.6)/ar.width*100)+'%';cur.style.top=((br.top-ar.top+br.height*.55)/ar.height*100)+'%';
+    await wait(900);if(my!==id)return;$('t2').classList.add('bad');on(B,4);
+    await wait(300);if(my!==id)return;cur.classList.add('click');await wait(150);cur.classList.remove('click');$('acB').classList.add('pick');$('acA').classList.add('lose');
+    await wait(700);if(my!==id)return;$('t3').classList.add('good');on(A,4);$('rmBox').classList.add('glow');$('scA').style.width='21%';$('scB').style.width='87%';count($('cmpN'),480000,2200);
+    await wait(500);if(my!==id)return;on(B,5);$('polB').classList.add('glow');count($('tryN'),12500000,2400);
+    await wait(900);if(my!==id)return;$('rmBox').classList.remove('glow');$('polA').classList.add('glow');
+    await wait(4200);if(my!==id)return;
+    if(live(A))run();else id++;
+  }
+  window.startRLHF=function(){run()};
+})();
+
+
+/* ===== this week: omega number line ===== */
+let omegaDone=false;
+function drawOmega(){const svg=$('omegaSvg');if(omegaDone&&!RM){svg.querySelectorAll('.om').forEach(e=>e.remove())}omegaDone=true;
+  const X=v=>40+(3-v)/(1)*1020;let s='';
+  s+='<line x1="'+X(3)+'" x2="'+X(2)+'" y1="110" y2="110" stroke="#0B0D12" stroke-width="1.5"/>';
+  for(let v=3;v>=1.999;v-=.05){const maj=Math.abs(v*4-Math.round(v*4))<.001;s+='<line x1="'+X(v)+'" x2="'+X(v)+'" y1="'+(maj?100:105)+'" y2="110" stroke="#0B0D12" stroke-width="'+(maj?1.2:.8)+'"/>'+(maj?'<text x="'+X(v)+'" y="132" text-anchor="middle" font-size="11" fill="#6A6F7E">'+v.toFixed(2)+'</text>':'')}
+  s+='<text x="'+X(3)+'" y="160" font-size="11" fill="#6A6F7E">naive: n³</text><text x="'+X(2)+'" y="160" text-anchor="end" font-size="11" fill="#6A6F7E">ω = 2: the dream</text>';
+  const R=[[3,'Schoolbook',''],[2.807,'Strassen','1969'],[2.376,'Coppersmith–Winograd','1990'],[2.3713,'Alman et al.','2024']];
+  R.forEach((r,i)=>{s+='<g class="om" style="opacity:0;transition:opacity .5s '+(.3+i*.35)+'s"><circle cx="'+X(r[0])+'" cy="110" r="5" fill="#FFFFFF" stroke="#0B0D12" stroke-width="1.6"/><text x="'+X(r[0])+'" y="'+(i%2?84:70)+'" text-anchor="middle" font-size="11" fill="#0B0D12">'+r[1]+(r[2]?' · '+r[2]:'')+'</text></g>'});
+  s+='<g class="om" id="omNew" style="opacity:0;transition:opacity .4s 2s"><line id="omLine" x1="'+X(2.3713)+'" x2="'+X(2.3713)+'" y1="110" y2="110" stroke="#FF4D00" stroke-width="4"/><circle id="omDot" cx="'+X(2.3713)+'" cy="110" r="8" fill="#FF4D00"/><text id="omLab" x="'+X(2.25)+'" y="56" text-anchor="middle" font-size="13" font-weight="700" fill="#C23A00">OpenAI · Nov 2026 · ω = 9/4 = 2.25</text></g>';
+  svg.innerHTML=s;
+  requestAnimationFrame(()=>{svg.querySelectorAll('.om').forEach(g=>g.style.opacity=1);
+    const dot=$('omDot'),line=$('omLine'),x0=X(2.3713),x1=X(2.25);if(RM){dot.setAttribute('cx',x1);line.setAttribute('x2',x1);return}
+    const t0=performance.now()+2300;(function f(n){const k=Math.max(0,Math.min(1,(n-t0)/1400)),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2,x=x0+(x1-x0)*e;dot.setAttribute('cx',x);line.setAttribute('x2',x);if(k<1)requestAnimationFrame(f)})(performance.now())})}
+
+/* ===== what's next: micro visuals ===== */
+(function(){
+  const cvs=[...document.querySelectorAll('[data-viz]')];let t=0;
+  function size(c){const d=Math.min(2,devicePixelRatio||1);c._w=c.clientWidth;c._h=c.clientHeight;c.width=c._w*d;c.height=c._h*d;c.getContext('2d').setTransform(d,0,0,d,0,0)}
+  cvs.forEach(size);addEventListener('resize',()=>cvs.forEach(size));
+  const txt='def merge(a,b):\n  out=[];i=j=0\n  while i<len(a) and j<len(b):\n    if a[i]<b[j]: out.append(a[i]);i+=1\n    else: out.append(b[j]);j+=1\n  return out+a[i:]+b[j:]\n';let si=0;
+  const D={
+    gdp(x,w,h){const v=[[0,.48],[.3,.71],[.6,.83],[.85,.849]],k=Math.min(1,t/120);x.strokeStyle='#DCDFE6';x.beginPath();x.moveTo(0,h-h*.5);x.lineTo(w,h-h*.5);x.stroke();x.fillStyle='#6A6F7E';x.font='500 9px "Geist Mono",monospace';x.fillText('expert parity',w-70,h-h*.5-3);
+      x.strokeStyle='#FF4D00';x.lineWidth=2;x.beginPath();v.forEach((p,i)=>{const X=p[0]/.85*w*k,Y=h-p[1]*h*.95;i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();x.fillStyle='#0B0D12';x.font='700 12px "Geist Mono",monospace';x.fillText(Math.round(48+37*k)+'%',4,12)},
+    loop(x,w,h){const cx=w/2,cy=h/2,r=h*.38;x.strokeStyle='#DCDFE6';x.lineWidth=2;x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();const a=t/30;x.strokeStyle='#2747E8';x.beginPath();x.arc(cx,cy,r,a,a+1.4);x.stroke();
+      for(let i=0;i<5;i++){const b=i*1.256+t/90;x.fillStyle=i===Math.floor(t/24)%5?'#FF4D00':'#0B0D12';x.beginPath();x.arc(cx+Math.cos(b)*(r+12+Math.sin(t/20+i)*3),cy+Math.sin(b)*(r*.7),2.5,0,7);x.fill()}},
+    rsi(x,w,h){let px=0,py=h-4;x.strokeStyle='#FF4D00';x.lineWidth=2;x.beginPath();x.moveTo(px,py);const k=(t%200)/200;for(let i=1;i<=60*k;i++){const X=i/60*w,Y=h-4-(Math.pow(1.075,i)-1)/(Math.pow(1.075,60)-1)*(h-8);x.lineTo(X,Y)}x.stroke()},
+    cost(x,w,h){const k=Math.min(1,t/140);x.fillStyle='#0B0D12';for(let i=0;i<8;i++){const v=Math.pow(1/13,i/3),bh=(h-14)*v*(i/8<k?1:0);x.fillRect(4+i*(w-8)/8,h-bh,(w-8)/8-6,bh)}x.fillStyle='#6A6F7E';x.font='500 9px "Geist Mono",monospace';x.fillText('$ per task, 2023 → 2026',4,10)},
+    distill(x,w,h){const cx=w*.18,cy=h/2;x.fillStyle='#0B0D12';x.beginPath();x.arc(cx,cy,14,0,7);x.fill();for(let i=0;i<14;i++){const ph=((t/120)+i/14)%1,a=(i*2.4)%6.28-1.2,r=20+ph*(w*.7);const X=cx+Math.cos(a*.45)*r,Y=cy+Math.sin(a*.45)*r*.6;x.fillStyle='rgba(255,77,0,'+(1-ph*.6)+')';x.beginPath();x.arc(X,Y,3+ (1-ph)*2,0,7);x.fill()}},
+    voice(x,w,h){x.strokeStyle='#0B0D12';x.lineWidth=2;const n=38;for(let i=0;i<n;i++){const X=4+i*(w-8)/n,a=(Math.sin(t/7+i*.55)*.5+.5)*(Math.sin(t/23+i*.17)*.5+.6)*(h*.42);x.strokeStyle=i%9===0?'#FF4D00':'#0B0D12';x.beginPath();x.moveTo(X,h/2-a);x.lineTo(X,h/2+a);x.stroke()}},
+    video(x,w,h){const fw=46,off=(t*.8)%(fw+6);for(let i=-1;i<w/(fw+6)+1;i++){const X=i*(fw+6)-off;x.fillStyle='#0B0D12';x.fillRect(X,6,fw,h-12);const g=x.createLinearGradient(X,0,X+fw,h);g.addColorStop(0,'#FF4D00');g.addColorStop(1,'#2747E8');x.fillStyle=g;x.globalAlpha=.35+.25*Math.sin((i+t/40));x.fillRect(X+4,12,fw-8,h-24);x.globalAlpha=1;x.fillStyle='#F4F5F7';for(let k=0;k<4;k++){x.fillRect(X+4+k*11,7,5,3);x.fillRect(X+4+k*11,h-10,5,3)}}}
+  };
+  function frame(){const slide=$('next');if(live(slide)&&slide.classList.contains('in')){t++;cvs.forEach(c=>{const x=c.getContext('2d');x.clearRect(0,0,c._w,c._h);D[c.dataset.viz]?.(x,c._w,c._h)});
+      const st=$('streamTxt');si=(si+7)%(txt.length*2);const shown=txt.slice(0,Math.min(si,txt.length));st.innerHTML=shown.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'<b>▌</b>'}
+    if(!RM)requestAnimationFrame(frame)}
+  window.startNext=function(){t=0;si=0};
+  if(RM){t=200;cvs.forEach(c=>{const x=c.getContext('2d');D[c.dataset.viz]?.(x,c._w,c._h)})}else frame();
 })();
 
 /* timeline: cinematic travel on entry */
@@ -1164,7 +1566,7 @@ const MILL=[
  {n:'Navier–Stokes',y:'Posed 1934',p:'With a smooth force: 10,000 OpenAI agents, Sep 2026; Clay says it "has apparently been settled". Without force: Buckmaster + Alpöge, Nov 20.',s:['b-rev','Claimed · in review'],c:'hit',st:'Blow-up'},
  {n:'P vs NP',y:'Posed 1971',p:'Still open; viral "solved" posts are false. Its algebraic cousin, Valiant\'s VP ≠ VNP, was claimed with Lean proofs on Nov 23.',s:['b-open','Cousin claimed'],c:'hit',st:'VP≠VNP'},
  {n:'Poincaré Conjecture',y:'Solved 2003',p:'Grigori Perelman, by hand. The only one solved before AI, and he declined the prize.',s:['b-ok','Solved · human'],c:'',st:'Human',ok:1},
- {n:'Yang–Mills mass gap',y:'Open',p:'Nothing credible yet.',s:['b-dis','Open'],c:'open'},
+ {n:'Yang–Mills & mass gap',y:'Posed 1954',p:'Existence of pure Yang–Mills proved by OpenAI models, confirmed by a committee chaired by David Gross (Nov 2026). The mass gap itself, the prize part, is still open.',s:['b-ok','Half-way · verified'],c:'hit',st:'Exists ✓'},
  {n:'Hodge Conjecture',y:'Open',p:'Nothing credible yet.',s:['b-dis','Open'],c:'open'},
  {n:'Birch & Swinnerton-Dyer',y:'Open',p:'Nothing credible yet. Number theory is moving fastest, so watch this one.',s:['b-dis','Open'],c:'open'},
  {n:'Prize money paid',y:'Clay rules',p:'None so far. Clay requires publication and two years of scrutiny, and OpenAI says it will not claim the prize.',s:['b-open','Pending'],c:'open'}
