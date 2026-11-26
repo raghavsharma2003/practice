@@ -5,7 +5,7 @@ An animated, presentable website on AI's path from GPT to superintelligence, cur
 Six acts, 24 chapters: Origins · Agents · Discoveries · Power · Takeoff · Us.
 
 - Open `index.html` in a browser (needs internet for Google Fonts).
-- Present with arrow keys / space; `F` for fullscreen; hover the right rail to jump between chapters.
+- Present with arrow keys, space, mouse wheel or swipe (deck mode with cinematic transitions on screens ≥ 900px wide; plain scrolling on phones); `F` for fullscreen; hover the right rail to jump.
 - `slides.html` is the same page without the document wrapper (used for publishing as an artifact).
 
 Every claim carries a status badge (verified / machine-verified / claimed / disputed). Many late-2026 items are days old; re-check them before presenting. Sources are listed on the final slide.
